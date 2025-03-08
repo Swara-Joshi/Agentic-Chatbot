@@ -8,6 +8,7 @@ langchain-groq = "*"
 langchain-openai = "*"
 langchain-community = "*"
 langgraph = "*"
+pydantic = "*"
 
 [dev-packages]
 
