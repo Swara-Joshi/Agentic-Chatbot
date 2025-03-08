@@ -20,17 +20,21 @@ from langgraph.prebuilt import create_react_agent
 from langchain_core.messages.ai import AIMessage
 
 system_prompt = "Act as an AI chatbot"
-agent = create_react_agent(
-    model = groq_llm,
-    tools = [search_tool],
-    state_modifier = system_prompt
-)
 
-query = "What is agentic ai"
-state = {"messages": query}
-response = agent.invoke(state)
-# messages = response.get("messages")
-# ai_messages = [message.content for message in messages if isinstance(message, AIMessage)]
-messages=response.get("messages")
-ai_messages=[message.content for message in messages if isinstance(message, AIMessage)]
-print(ai_messages[-1])
+def get_response_from_ai_agent(llm_id, query, allow_search, system_prompt, provider):
+    if provider=="Groq":
+        llm=ChatGroq(model=llm_id)
+    elif provider=="OpenAI":
+        llm=ChatOpenAI(model=llm_id)
+
+    tools=[TavilySearchResults(max_results=2)] if allow_search else []
+    agent=create_react_agent(
+        model=llm,
+        tools=tools,
+        state_modifier=system_prompt
+    )
+    state={"messages": query}
+    response=agent.invoke(state)
+    messages=response.get("messages")
+    ai_messages=[message.content for message in messages if isinstance(message, AIMessage)]
+    return ai_messages[-1]
