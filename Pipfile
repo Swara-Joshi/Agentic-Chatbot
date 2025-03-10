@@ -12,6 +12,8 @@ pydantic = "*"
 fastapi = "*"
 uvicorn = "*"
 streamlit = "*"
+local = "*"
+tunnel = "*"
 
 [dev-packages]
 
