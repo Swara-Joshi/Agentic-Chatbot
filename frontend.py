@@ -24,13 +24,13 @@ user_query=st.text_area("Enter your query: ", height=150, placeholder="Ask Anyth
 
 import requests
 
-API_URL = "http://0.0.0.0:9999/chat"
+API_URL = "http://127.0.0.1:9999/chat"
 
-try:
-    response = requests.post(API_URL, json=payload, timeout=(5, 10))  # 5 seconds connect timeout, 10 seconds read timeout
-    response.raise_for_status()  # Raise an exception for HTTP errors
-except requests.exceptions.RequestException as e:
-    st.error(f"An error occurred: {e}")
+# try:
+#     response = requests.post(API_URL, json=payload, timeout=(5, 10))  # 5 seconds connect timeout, 10 seconds read timeout
+#     response.raise_for_status()  # Raise an exception for HTTP errors
+# except requests.exceptions.RequestException as e:
+#     st.error(f"An error occurred: {e}")
 
 if st.button("Ask Agent!"):
     if user_query.strip():
